@@ -1,2 +1,2 @@
 # EMTbitcoin
-Testing EMT by predicting Bitcoin movements
+Math+Machine Learning Module. Testing EMT by predicting Bitcoin movements.
