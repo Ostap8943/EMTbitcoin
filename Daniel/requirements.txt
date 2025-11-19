@@ -5,3 +5,5 @@ kagglehub
 yfinance
 scikit-learn 
 datasets
+transformers
+torch
