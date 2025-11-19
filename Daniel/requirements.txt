@@ -1,0 +1,7 @@
+pandas
+pyarrow
+fastparquet
+kagglehub 
+yfinance
+scikit-learn 
+datasets
