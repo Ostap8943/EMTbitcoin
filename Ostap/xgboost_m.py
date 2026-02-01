@@ -5,9 +5,7 @@ from sklearn.metrics import mean_absolute_error, accuracy_score
 from xgboost import XGBRegressor, XGBClassifier
 
 df = pd.read_csv("btcusd_1-min_data.csv")  
-
 df['Timestamp'] = pd.to_datetime(df['Timestamp'], unit='s')
-
 df = df.sort_values('Timestamp').reset_index(drop=True)
 
 df['lag1'] = df['Close'].shift(1)
@@ -26,11 +24,9 @@ df['dayofweek'] = df['Timestamp'].dt.dayofweek
 
 df = df.dropna()
 
-# Regression target
-df['target_price'] = df['Close'].shift(-1)
+df['target_return'] = df['return'].shift(-1) 
 
-# Classification target — up/down
-df['target_up'] = (df['target_price'] > df['Close']).astype(int)
+df['target_up'] = (df['target_return'] > 0).astype(int)
 
 df = df.dropna()
 
@@ -42,12 +38,11 @@ features = [
 ]
 
 X = df[features]
-y_reg = df['target_price']
-y_clf = df['target_up']
+y_reg = df['target_return']  
+y_clf = df['target_up']      
 
 X_train, X_test, y_train_reg, y_test_reg = train_test_split(X, y_reg, test_size=0.2, shuffle=False)
 _, _, y_train_clf, y_test_clf = train_test_split(X, y_clf, test_size=0.2, shuffle=False)
-
 
 reg_model = XGBRegressor(
     n_estimators=200,
@@ -56,7 +51,6 @@ reg_model = XGBRegressor(
     subsample=0.8,
     objective='reg:squarederror'
 )
-
 reg_model.fit(X_train, y_train_reg)
 
 clf_model = XGBClassifier(
@@ -65,21 +59,20 @@ clf_model = XGBClassifier(
     max_depth=6,
     subsample=0.8
 )
-
 clf_model.fit(X_train, y_train_clf)
 
 pred_reg = reg_model.predict(X_test)
 mae = mean_absolute_error(y_test_reg, pred_reg)
-print("MAE (Next price prediction):", mae)
+
+print(f"MAE (Next return prediction): {mae:.6f}")
 
 pred_clf = clf_model.predict(X_test)
 acc = accuracy_score(y_test_clf, pred_clf)
-print("Accuracy (Up/Down prediction):", acc)
-
+print(f"Accuracy (Up/Down prediction): {acc:.4f}")
 
 print("\nExample next-minute prediction:")
-print("Real price next minute:", y_test_reg.values[-1])
-print("Predicted next minute:", pred_reg[-1])
+print(f"Real return next minute: {y_test_reg.values[-1]:.6f}")
+print(f"Predicted return next minute: {pred_reg[-1]:.6f}")
 
-print("\nReal direction:", y_test_clf.values[-1])
-print("Predicted direction:", pred_clf[-1])
+print(f"\nReal direction: {y_test_clf.values[-1]}")
+print(f"Predicted direction: {pred_clf[-1]}")
