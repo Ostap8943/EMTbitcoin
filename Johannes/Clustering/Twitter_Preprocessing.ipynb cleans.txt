@@ -1,0 +1,17 @@
+"Twitter_Preprocessing.ipynb" cleans data and processes URLs and emojis
+
+"Bert_token_transformer.ipynb" prepares tweets for BERT by creating properly tokenized texts
+
+"Twitter_Embedding.ipynb" creates tweet embeddings
+
+"Embedding_Aggregator.ipynb" aggregates tweet embeddings to the user level (for training PCA/K-Means use cutoff 2021-10-19, for inference 2022-01-02)
+
+"Pca_calculator.ipynb" calculates Incremental PCA
+
+"cluster_finder.ipynb" tries different combinations of dimensions and K to find the best combination
+
+"cluster_creator.ipynb" creates the final clustering
+
+"cluster_labeling.ipynb" labels clusters based on meta-features and top-10 user tweets
+
+"cluster_users.ipynb" assigns each user to a cluster
