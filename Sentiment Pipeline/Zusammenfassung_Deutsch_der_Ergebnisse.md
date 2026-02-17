@@ -1,7 +1,3 @@
-# Kein python script, sondern eine richtige .md
-
-Hier ist die fertige Markdown-Datei:
-
 # Bitcoin Sentiment Analyse - Ergebnisse 2021
 
 ## Executive Summary
@@ -467,9 +463,5 @@ Bei disziplinierter Execution einer Contrarian-Strategie auf Extreme Events:
 **Methode:** RoBERTa Sentiment Classification + Statistical Time Series Analysis
 **Tools:** Python 3.12, Pandas 2.x, Scikit-learn, Statsmodels, PyArrow
 **Autor:** Sentiment Analysis Pipeline
-**Version:** 1.0
-
-```
-
-Speichere das als `Bitcoin_Sentiment_Analysis_2021.md` ab!```
+**Version:**
 
